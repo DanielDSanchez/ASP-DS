@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ASP_DS.Models.roles>
+﻿@model IEnumerable<ASP_DS.Models.producto_imagen>
 
 @{
-    ViewBag.Title = "Lista - Roles";
+    ViewBag.Title = "Lista - Imagen Producto";
 }
 
-<h2>Lista Roles</h2>
+<h2>Lista Imagen Producto</h2>
 
 <p>
     @Html.ActionLink("Crear Nuevo", "Create")
@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            Descripcion:
+            Imagen:
+        </th>
+        <th>
+            Nombre Producto:
         </th>
         <th></th>
     </tr>
@@ -21,12 +24,15 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
+                @Html.DisplayFor(modelItem => item.imagen)  
+            </td>
+            <td>
+                @ASP_DS.Controllers.ProductoImagenController.nombreProducto(item.id_producto) 
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class="linkDelete"})
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id },new { @class="linkDelete"})
             </td>
         </tr>
     }

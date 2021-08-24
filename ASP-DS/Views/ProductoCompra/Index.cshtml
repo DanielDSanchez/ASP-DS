@@ -1,29 +1,25 @@
-﻿@model IEnumerable<ASP_DS.Models.usuario>
+﻿@model IEnumerable<ASP_DS.Models.producto_compra>
 
 @{
-    ViewBag.Title = "Lista - Usuario";
+    ViewBag.Title = "Lista - Producto Compra";
 }
 
-<h2>Lista Usuario</h2>
+<h2>Lista Producto Compra</h2>
 
 <p>
-    @Html.ActionLink("Crear Usuario", "Create")
+    @Html.ActionLink("Crear Nuevo", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            Nombre Usuario
+            Fecha Compra:
         </th>
         <th>
-            Apellido Usuario
+            Nombre Producto:
         </th>
         <th>
-            Fecha Nacimiento
+            Cantidad:
         </th>
-        <th>
-            Correo Electronico
-        </th>
-
         <th></th>
     </tr>
 
@@ -31,18 +27,14 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre)
+                @ASP_DS.Controllers.ProductoCompraController.FechaCompra(item.id_compra);
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.apellido)
+                @ASP_DS.Controllers.ProductoCompraController.nombreProducto(item.id_producto);
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.fecha_nacimiento)
+                @Html.DisplayFor(modelItem => item.cantidad)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
@@ -60,4 +52,4 @@
             }
         })
     </script>
-}
+    }

@@ -1,0 +1,42 @@
+﻿@model ASP_DS.Models.producto_compra
+
+@{
+    ViewBag.Title = "Detalles - ProductoCompra";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Producto Compra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Fecha Compra:
+        </dt>
+
+        <dd>
+            @ASP_DS.Controllers.ProductoCompraController.FechaCompra(Model.id)
+        </dd>
+
+        <dt>
+            Nombre Producto:
+        </dt>
+
+        <dd>
+            @ASP_DS.Controllers.ProductoCompraController.nombreProducto(Model.id)    
+        </dd>
+
+        <dt>
+            Cantidad:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Ver Todos", "Index")
+</p>

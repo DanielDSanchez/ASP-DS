@@ -1,29 +1,28 @@
-﻿@model IEnumerable<ASP_DS.Models.usuario>
+﻿@model IEnumerable<ASP_DS.Models.compra>
 
 @{
-    ViewBag.Title = "Lista - Usuario";
+    ViewBag.Title = "Lista - Compra";
 }
 
-<h2>Lista Usuario</h2>
+<h2>Lista Compra </h2>
 
 <p>
-    @Html.ActionLink("Crear Usuario", "Create")
+    @Html.ActionLink("Crear Nuevo", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            Nombre Usuario
+            Fecha Compra:
         </th>
         <th>
-            Apellido Usuario
+            Total Compra:
         </th>
         <th>
-            Fecha Nacimiento
+            Nombre Usuario:
         </th>
         <th>
-            Correo Electronico
+            Nombre Cliente:
         </th>
-
         <th></th>
     </tr>
 
@@ -31,22 +30,21 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre)
+                @Html.DisplayFor(modelItem => item.fecha)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.apellido)
+                @Html.DisplayFor(modelItem => item.total)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.fecha_nacimiento)
+                @ASP_DS.Controllers.CompraController.nombreUsuario(item.id_usuario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.email)
+                @ASP_DS.Controllers.CompraController.nombreCliente(item.id_cliente)
             </td>
-
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class="linkDelete"})
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
             </td>
         </tr>
     }

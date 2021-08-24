@@ -1,0 +1,50 @@
+﻿@model ASP_DS.Models.compra
+
+@{
+    ViewBag.Title = "Detalles - Compra";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>compra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Fecha Compra:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            Total Compra:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+        <dt>
+            Nombre Usuario:
+        </dt>
+
+        <dd>
+            @ASP_DS.Controllers.CompraController.nombreUsuario(Model.id_cliente)
+        </dd>
+
+        <dt>
+            Nombre Cliente:
+        </dt>
+
+        <dd>
+            @ASP_DS.Controllers.CompraController.nombreCliente(Model.id_cliente )    
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Ver Todos", "Index")
+</p>
