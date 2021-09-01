@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ASP_DS.Models;
+using Rotativa;
 
 namespace ASP_DS.Controllers
 {
@@ -58,7 +59,8 @@ namespace ASP_DS.Controllers
                     return RedirectToAction("Index");
                 }
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 ModelState.AddModelError("", "error " + e);
                 return View();
@@ -82,7 +84,8 @@ namespace ASP_DS.Controllers
                     return View(productoEdit);
                 }
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 ModelState.AddModelError("", "error " + e);
                 return View();
@@ -109,7 +112,8 @@ namespace ASP_DS.Controllers
                     return RedirectToAction("Index");
 
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 ModelState.AddModelError("", "error " + e);
                 return View();
@@ -127,11 +131,42 @@ namespace ASP_DS.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 ModelState.AddModelError("", "error " + e);
                 return View();
             }
+        }
+        public ActionResult Reporte()
+        {
+            try
+            {
+                var db = new inventario2021Entities();
+                var query = from tabProveedor in db.proveedor
+                            join tabProducto in db.producto on tabProveedor.id equals tabProducto.id_proveedor
+                            select new Reporte
+                            {
+                                nombreProveedor = tabProveedor.nombre,
+                                telefonoProveedor = tabProveedor.telefono,
+                                direccionProveedor = tabProveedor.direccion,
+                                nombreProducto = tabProducto.nombre,
+                                precioProducto = tabProducto.percio_unitario
+
+                            };
+                return View(query);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error " + ex);
+                return View();
+            }
+
+
+        }
+        public ActionResult PdfReporte()
+        {
+            return new ActionAsPdf("Reporte") { FileName = "reporte.pdf" };
         }
     }
 }
