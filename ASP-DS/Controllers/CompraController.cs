@@ -9,7 +9,7 @@ namespace ASP_DS.Controllers
 {
     public class CompraController : Controller
     {
-
+        [Authorize]
         // GET: UsuarioRol
         public ActionResult Index()
         {

@@ -9,6 +9,7 @@ namespace ASP_DS.Controllers
 {
     public class RolController : Controller
     {
+        [Authorize]
         // GET: Rol
         public ActionResult Index()
         {

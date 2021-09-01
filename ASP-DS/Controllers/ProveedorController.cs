@@ -9,6 +9,7 @@ namespace ASP_DS.Controllers
 {
     public class ProveedorController : Controller
     {
+        [Authorize]
         // GET: Proveedor
         public ActionResult Consulta()
         {
