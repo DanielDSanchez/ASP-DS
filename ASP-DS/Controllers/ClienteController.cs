@@ -7,9 +7,10 @@ using ASP_DS.Models;
 
 namespace ASP_DS.Controllers
 {
+    [Authorize]
     public class ClienteController : Controller
     {
-        [Authorize]
+        
         // GET: Cliente
         public ActionResult Index()
         {

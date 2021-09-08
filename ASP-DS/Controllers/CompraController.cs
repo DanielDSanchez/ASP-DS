@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ASP_DS.Models;
+using Rotativa;
 
 namespace ASP_DS.Controllers
 {
+    [Authorize]
     public class CompraController : Controller
     {
-        [Authorize]
+        
         // GET: UsuarioRol
         public ActionResult Index()
         {
@@ -35,6 +37,15 @@ namespace ASP_DS.Controllers
                 return db.cliente.Find(idCliente).nombre;
             }
         }
+        public static string nombreProducto(int idProducto)
+        {
+            using (var db = new inventario2021Entities())
+            {
+                return db.producto.Find(idProducto).nombre;
+            }
+        }
+        
+
 
         public ActionResult ListarUsuarios()
         {
@@ -149,6 +160,37 @@ namespace ASP_DS.Controllers
                 ModelState.AddModelError("", "error " + e);
                 return View();
             }
+        }
+        
+
+        public ActionResult Reporte2()
+        {
+            try
+            {
+                var db = new inventario2021Entities();
+                var query = from tabCompra in db.compra 
+                            join tabProCompra in db.producto_compra on tabCompra.id equals tabProCompra.id_compra
+                            select new Reporte2
+                            {
+                                fechaCompra = tabCompra.fecha,
+                                idUsuario = tabCompra.id_usuario,
+                                totalCompra = tabCompra.total,
+                                idCliente = tabCompra.id_cliente,
+                                idProducto = tabProCompra.id_producto,
+                                cantidad = tabProCompra.cantidad
+                            };
+                return View(query);
+                
+            }catch(Exception ex)
+            {
+                ModelState.AddModelError("", "error "+ex);
+                return View();
+            }
+
+        }
+        public ActionResult PdfReporte()
+        {
+            return new ActionAsPdf("Reporte2") { FileName = "reporte2.pdf" };
         }
 
     }

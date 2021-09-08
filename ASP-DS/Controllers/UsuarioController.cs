@@ -25,6 +25,7 @@ namespace ASP_DS.Controllers
 
 
         }
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -32,6 +33,7 @@ namespace ASP_DS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(usuario usuario)
         {
             if (!ModelState.IsValid)
@@ -68,7 +70,7 @@ namespace ASP_DS.Controllers
             }
             return sb.ToString();
         }
-
+        [Authorize]
         public ActionResult Details(int id)
         {
             using (var db = new inventario2021Entities())
@@ -77,7 +79,7 @@ namespace ASP_DS.Controllers
                 return View(findUser);
             }
         }
-
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try
@@ -99,7 +101,7 @@ namespace ASP_DS.Controllers
 
 
         }
-
+        [Authorize]
         public ActionResult Edit(int id)
         {
             try
@@ -119,7 +121,7 @@ namespace ASP_DS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize]
         public ActionResult edit(usuario editUser)
         {
             try

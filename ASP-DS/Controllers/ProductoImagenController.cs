@@ -7,9 +7,10 @@ using ASP_DS.Models;
 
 namespace ASP_DS.Controllers
 {
+    [Authorize]
     public class ProductoImagenController : Controller
     {
-        [Authorize]
+        
         // GET: ProductoImagen
         public ActionResult Index()
         {

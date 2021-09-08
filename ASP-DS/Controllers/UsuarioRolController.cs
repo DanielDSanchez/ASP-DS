@@ -7,9 +7,10 @@ using ASP_DS.Models;
 
 namespace ASP_DS.Controllers
 {
+    [Authorize]
     public class UsuarioRolController : Controller
     {
-        [Authorize]
+        
         // GET: UsuarioRol
         public ActionResult Index()
         {

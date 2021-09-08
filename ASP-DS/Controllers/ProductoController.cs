@@ -8,9 +8,10 @@ using Rotativa;
 
 namespace ASP_DS.Controllers
 {
+    [Authorize]
     public class ProductoController : Controller
     {
-        [Authorize]
+        
         // GET: Producto
         public ActionResult Index()
         {

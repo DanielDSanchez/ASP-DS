@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ASP_DS.Models.Reporte2>
+@{
+    ViewBag.Title = "Reporte2";
+}
+
+<h2>Reporte2</h2>
+<table class="table">
+    <tr>
+        <th>Nombre Usuario</th>
+        <th>Nombre Cliente</th>
+        <th>nombre Producto</th>
+        <th>Fecha Compra</th>
+        <th>Cantidad</th>
+        <th>Total Compra</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@ASP_DS.Controllers.CompraController.nombreUsuario(item.idUsuario)</td>
+            <td>
+                @ASP_DS.Controllers.CompraController.nombreCliente(item.idCliente)
+            </td>
+            <td>@ASP_DS.Controllers.CompraController.nombreProducto(item.idProducto)</td>
+            <td>@Html.DisplayFor(modelItem => item.fechaCompra)</td>
+            <td>@Html.DisplayFor(modelItem => item.cantidad)</td>
+            <td>@Html.DisplayFor(modelItem => item.totalCompra)</td>
+
+        </tr>
+    }
+</table>
+@Html.ActionLink("Imprimir Reporte", "PdfReporte")
+

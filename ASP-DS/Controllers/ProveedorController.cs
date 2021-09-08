@@ -7,9 +7,10 @@ using ASP_DS.Models;
 
 namespace ASP_DS.Controllers
 {
+    [Authorize]
     public class ProveedorController : Controller
     {
-        [Authorize]
+        
         // GET: Proveedor
         public ActionResult Consulta()
         {
