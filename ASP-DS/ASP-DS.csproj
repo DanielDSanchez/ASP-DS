@@ -296,6 +296,8 @@
     <Content Include="Views\Shared\Plantilla.cshtml" />
     <Content Include="Views\Producto\Reporte.cshtml" />
     <Content Include="Views\Compra\Reporte2.cshtml" />
+    <Content Include="Views\Proveedor\uploadCSV.cshtml" />
+    <Content Include="uploads\datos.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
