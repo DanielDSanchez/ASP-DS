@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ASP_DS.Models;
 using Rotativa;
+using System.IO;
 
 namespace ASP_DS.Controllers
 {
@@ -168,6 +169,62 @@ namespace ASP_DS.Controllers
         public ActionResult PdfReporte()
         {
             return new ActionAsPdf("Reporte") { FileName = "reporte.pdf" };
+        }
+        public ActionResult UploadCSV(HttpPostedFileBase fileForm)
+        {
+            try
+            {
+                string filePath = string.Empty;
+
+                if (fileForm != null)
+                {
+                    string path = Server.MapPath("~/uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(fileForm.FileName);
+                    string extension = Path.GetExtension(fileForm.FileName);
+                    fileForm.SaveAs(filePath);
+                    string csvData = System.IO.File.ReadAllText(filePath);
+
+                    foreach (string row in csvData.Split('\n'))
+                    {
+                        if (!string.IsNullOrEmpty(row))
+                        {
+
+                            var newProducto = new producto
+                            {
+                                nombre = row.Split(';')[0],
+                                percio_unitario = int.Parse(row.Split(';')[1]),
+                                descripcion = row.Split(';')[2],
+                                cantidad = int.Parse(row.Split(';')[3]),
+                                id_proveedor = int.Parse(row.Split(';')[4])
+
+                            };
+
+                            using (var db = new inventario2021Entities())
+                            {
+
+                                db.producto.Add(newProducto);
+                                db.SaveChanges();
+                            }
+                        }
+
+
+                    }
+
+                }
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error" + ex);
+                return View();
+            }
+
+
         }
     }
 }
