@@ -1,0 +1,27 @@
+﻿@model ASP_DS.Models.ProductoIndex
+@{
+    ViewBag.Title = "PaginadorIndex";
+}
+
+<h2>PaginadorIndex</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Nombre</th>
+        <th>Precio </th>
+        <th>Descripcion</th>
+        <th>Cantidad</th>
+        <th>Proveedor</th>
+    </tr>
+    @foreach (var producto in Model.productos)
+    {
+        <tr>
+            <td>@producto.nombre</td>
+            <td>@producto.percio_unitario</td>
+            <td>@producto.descripcion</td>
+            <td>@producto.cantidad</td>
+            <td>@ASP_DS.Controllers.ProductoController.nombreProveedor(producto.id_proveedor)</td>
+        </tr>
+    }
+</table>
+@{Html.RenderPartial("Paginador", Model);}

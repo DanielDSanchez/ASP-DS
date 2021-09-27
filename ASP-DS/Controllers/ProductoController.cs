@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ASP_DS.Models;
 using Rotativa;
 using System.IO;
+using System.Web.Routing;
 
 namespace ASP_DS.Controllers
 {
@@ -224,6 +225,35 @@ namespace ASP_DS.Controllers
                 return View();
             }
 
+
+        }
+        public ActionResult PaginadorIndex(int pagina = 1)
+        {
+            try
+            {
+                int cantidadRegistros = 5;
+                using (var db = new inventario2021Entities())
+                {
+                    var productos = db.producto.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+                    int totalRegistros = db.producto.Count();
+                    var modelo = new ProductoIndex();
+                    modelo.productos = productos;
+                    modelo.ActualPage = pagina;
+
+                    modelo.total = totalRegistros;
+                    modelo.RecordsPage = cantidadRegistros;
+                    modelo.valueQueryString = new RouteValueDictionary();
+
+                    return View(modelo);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error" + ex);
+                return View();
+            }
 
         }
     }
