@@ -46,12 +46,14 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class="linkDelete"})
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
             </td>
         </tr>
     }
 
+
 </table>
+@Html.ActionLink("Paginador", "PaginadorIndex")
 @section scripts{
     <script>
         $(".linkDelete").click(function (event) {

@@ -1,0 +1,28 @@
+﻿@model ASP_DS.Models.UsuarioIndex
+
+@{
+    ViewBag.Title = "Paginador Index";
+}
+
+<h2>Paginador Index</h2>
+
+<table class="table table-striped" >
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Fecha Nacimiento</th>
+    </tr>
+    @foreach(var usuario in Model.usuarios)
+            {
+                <tr>
+                    <td>@usuario.nombre</td>
+                    <td>@usuario.apellido</td>
+                    <td>@usuario.email</td>
+                    <td>@usuario.fecha_nacimiento</td>
+                </tr>
+            }
+</table>
+@{Html.RenderPartial("Paginador", Model);}
+
+

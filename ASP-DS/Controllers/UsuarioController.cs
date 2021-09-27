@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ASP_DS.Models;
 using System.Web.Security;
 using System.Text;
+using System.IO;
+using System.Web.Routing;
 
 
 namespace ASP_DS.Controllers
@@ -185,6 +187,96 @@ namespace ASP_DS.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+        public ActionResult UploadCSV()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UploadCSV(HttpPostedFileBase fileForm)
+        {
+            try
+            {
+                string filePath = string.Empty;
+
+                if (fileForm != null)
+                {
+                    string path = Server.MapPath("~/uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(fileForm.FileName);
+                    string extension = Path.GetExtension(fileForm.FileName);
+                    fileForm.SaveAs(filePath);
+                    string csvData = System.IO.File.ReadAllText(filePath);
+
+                    foreach (string row in csvData.Split('\n'))
+                    {
+                        if (!string.IsNullOrEmpty(row))
+                        {
+                            
+                            var newUsuario = new usuario
+                            {
+                                nombre = row.Split(';')[0],
+                                apellido = row.Split(';')[1],
+                                fecha_nacimiento = DateTime.Parse(row.Split(';')[2]),
+                                email = row.Split(';')[3],
+                                password = row.Split(';')[4]
+                                
+                            };
+                            
+                            using (var db = new inventario2021Entities())
+                            {
+                               
+                                db.usuario.Add(newUsuario);
+                                db.SaveChanges();
+                            }
+                        }
+
+
+                    }
+
+                }
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error" + ex);
+                return View();
+            }
+
+
+        }
+        public ActionResult PaginadorIndex(int pagina = 1)
+        {
+            try
+            {
+                int cantidadRegistros = 5;
+                using (var db = new inventario2021Entities())
+                {
+                    var usuarios = db.usuario.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+                    int totalRegistros = db.usuario.Count();
+                    var modelo = new UsuarioIndex();
+                    modelo.usuarios = usuarios;
+                    modelo.ActualPage = pagina;
+
+                    modelo.total = totalRegistros;
+                    modelo.RecordsPage = cantidadRegistros;
+                    modelo.valueQueryString = new RouteValueDictionary();
+
+                    return View(modelo);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error" + ex);
+                return View();
+            }
+
         }
 
     }
